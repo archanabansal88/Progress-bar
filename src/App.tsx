@@ -1,24 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import ProgressBar from "./components/progressBar";
 
 function App() {
+  const [isInProgress, setIsInProgress] = useState(false);
+  const [count, setCount] = useState(0);
+  const [queueCount, setQueueCount] = useState(0);
+
+  const handleAddMoreBar = () => {
+    if (isInProgress) {
+      setQueueCount(queueCount + 1);
+    } else {
+      setCount(count + 1);
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Progress Bar</h1>
+      <button onClick={handleAddMoreBar}>Add</button>
+      {[...Array(count)].map((_, index) => (
+        <ProgressBar
+          key={index}
+          onStart={() => setIsInProgress(true)}
+          onComplete={() => {
+            if (queueCount > 0) {
+              setQueueCount(queueCount - 1);
+              setCount(count + 1);
+            }
+            setIsInProgress(false);
+          }}
+        />
+      ))}
+      {[...Array(queueCount)].map((_, index) => (
+        <div className="empty-progressbar"></div>
+      ))}
     </div>
   );
 }

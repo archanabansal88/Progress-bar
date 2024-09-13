@@ -1,0 +1,23 @@
+.progress-bar,
+.empty-progressbar {
+  height: 20px;
+  width: 500px;
+  border: 1px solid black;
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+  margin: 10px;
+}
+.progress-bar span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+}
+
+.progress-bar div {
+  height: 100%;
+  background-color: green;
+}
